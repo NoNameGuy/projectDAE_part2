@@ -50,7 +50,7 @@ public class ResponsavelEvento extends javax.swing.JPanel {
 
         jLabel3.setText("ID Responsável: ");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar 2.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/save.png"))); // NOI18N
         jButton1.setText("Guardar");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/remover.png"))); // NOI18N
@@ -72,7 +72,7 @@ public class ResponsavelEvento extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(25, 25, 25))
         );
