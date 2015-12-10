@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Update User</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+         
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="name" value="Name: "/>
+                <h:inputText
+                    id="name"
+                    required ="true"
+                    requiredMessage="Name cannot be empty!"
+                    value="#{administratorManager.currentResponsible.name}">
+                </h:inputText>
+                <h:message for="name" />
+                <h:outputLabel for="email" value="Email: "/>
+                <h:inputText
+                    id="email"
+                    required ="true"
+                    requiredMessage="Email cannot be empty!"
+                    value="#{administratorManager.currentResponsible.email}">
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                </h:inputText>
+                <h:message for="email" />
+                <h:outputLabel for="password" value="Password: "/>
+                <h:inputSecret
+                    id="password"
+                    required ="true"
+                    requiredMessage="Password cannot be empty!"
+                    value="#{administratorManager.currentResponsible.password}">
+                </h:inputSecret>
+                <h:message for="password" />
+            </h:panelGrid>
+            <h:panelGrid>
+                <h:commandButton 
+                    id="submit"
+                    value="Submit" 
+                    action="#{administratorManager.updateResponsible}">
+                </h:commandButton>
+                <h:message for="submit" style="color: red"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

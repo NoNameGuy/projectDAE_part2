@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Create Event</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+    
+    <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="id" value="ID: "/>
+                <h:inputText
+                    id="id"
+                    required ="true"
+                    requiredMessage="ID cannot be empty!"
+                    value="#{administratorManager.newEvent.id}">
+                </h:inputText>
+                <h:message for="id" />
+                <h:outputLabel for="date" value="Date: "/>
+                <h:inputText
+                    id="date"
+                    required ="true"
+                    requiredMessage="Date cannot be empty!"
+                    value="#{administratorManager.newEvent.date}">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </h:inputText>
+                <h:message for="date" />
+                <h:outputLabel for="name" value="Name: "/>
+                <h:inputText
+                    id="name"
+                    required ="true"
+                    requiredMessage="Name cannot be empty!"
+                    value="#{administratorManager.newEvent.name}">
+                </h:inputText>
+                <h:message for="name" />
+                <h:outputLabel for="type" value="Type: "/>
+                <h:inputText
+                    id="type"
+                    required ="true"
+                    requiredMessage="Type cannot be empty!"
+                    value="#{administratorManager.newEvent.type}">
+                </h:inputText>
+                <h:message for="type" />
+                <h:outputLabel for="local" value="Local: "/>
+                <h:inputText
+                    id="local"
+                    required ="true"
+                    requiredMessage="Local cannot be empty!"
+                    value="#{administratorManager.newEvent.local}">
+                </h:inputText>
+                <h:message for="local" />
+                <h:outputLabel for="responsible" value="Responsible: "/>
+                <h:selectOneMenu
+                    id="responsible"
+                    value="#{administratorManager.newEvent.responsible_id}" >
+                    <f:selectItems
+                        value="#{administratorManager.allResponsibles}"
+                        var="responsible"
+                        itemValue="#{responsible.id}"
+                        itemLabel="#{responsible.name}" />
+                </h:selectOneMenu>
+                
+
+                <h:message for="responsible" />
+            </h:panelGrid>
+            <h:panelGrid>
+                <h:commandButton 
+                    id="submit"
+                    value="Submit" 
+                    action="#{administratorManager.createEvent}">
+                </h:commandButton>
+                <h:message for="submit" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

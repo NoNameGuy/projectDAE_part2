@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Event Details</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>Event Details:</div>
+        <p:dataTable value="#{administratorManager.currentEvent}" 
+                     var="event"
+                     summary="List of all Event">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{event.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Date</f:facet>
+                <h:outputText value="#{event.date}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{event.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{event.type}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Local</f:facet>
+                <h:outputText value="#{event.local}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Responsible</f:facet>
+                <h:outputText value="#{event.responsible_name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Open Inscriptions</f:facet>
+                <h:outputText value="#{event.openInscriptions}"/>
+            </p:column>
+            <p:column>
+                <h:form rendered="#{!event.openInscriptions}">
+                    <p:commandLink value="Open inscriptions" actionListener="#{administratorManager.openInscription}">
+                        <f:param name="eventID" id="eventID" value="#{event.id}"/>
+                    </p:commandLink>
+                </h:form>    
+
+                <h:form rendered="#{event.openInscriptions}">
+                    <p:commandLink value="Close inscriptions" actionListener="#{administratorManager.closeInscription}">
+                        <f:param name="eventID" id="eventID" value="#{event.id}"/>
+                    </p:commandLink>
+                </h:form>
+                <h:form>
+                    <p:commandLink action="add_participant_event" value="Add Participant"></p:commandLink>
+                </h:form>
+            </p:column>
+            
+            
+        </p:dataTable>
+
+        <br></br>
+
+        <div>Enrolled Participants:</div>
+        <p:dataTable value="#{administratorManager.enrolledParticipants}" 
+                     var="participant"
+                     summary="List of Enrolled Participants">
+
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{participant.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{participant.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{participant.email}"/>
+
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">Present</f:facet>
+                <h:outputText value="No"/>
+
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Remove participant" actionListener="#{administratorManager.unrollParticipants}" action="event_details?faces-redirect=true">
+                        <f:param name="participantId" id="participantId" value="#{participant.id}"/>
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+
+        </p:dataTable>
+
+        <br></br>
+
+        <div>Unrolled Participants:</div>
+        <p:dataTable value="#{administratorManager.unrolledParticipants}"
+                     var="participant"
+                     summary="List of Unrolled Participants">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{participant.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{participant.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{participant.email}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Add participant" actionListener="#{administratorManager.enrollParticipants}" action="event_details?faces-redirect=true">
+                        <f:param name="participantId" id="participantId" value="#{participant.id}"/>
+                    </p:commandLink>
+                    
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <br></br>
+        <h:form>
+            <p:commandLink action="AdminPage" value="Back"></p:commandLink>
+        </h:form>
+
+
+    </h:body>
+</html>

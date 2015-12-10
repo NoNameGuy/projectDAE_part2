@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://java.sun.com/jsf/core"  
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <title>Admin Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <!-- //////////////////////////ADMINISTRATOR////////////////////////// -->
+
+        <div>Administrators:</div>
+        <p:dataTable value="#{administratorManager.allAdministrators}" 
+                     var="administrator"   
+                     summary="List of all Administrators">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{administrator.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{administrator.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{administrator.email}"/>
+
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Update" action="admin_administrator_update?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentAdministrator}" value="#{administrator}" />
+                    </p:commandLink>
+
+                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeAdministrator}">
+                        <f:param name="administratorID" id="administratorID" value="#{administrator.id}"/>
+                    </p:commandLink>
+
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <p:commandButton action="admin_administrator_create" value="New Administator" ></p:commandButton> 
+            <br></br>
+        </h:form>
+
+        <br></br><br></br>
+        <!-- //////////////////////////RESPONSIBLE////////////////////////// -->
+        <div>Responsibles:</div>
+        <p:dataTable value="#{administratorManager.allResponsibles}" 
+                     var="responsible"
+                     summary="List of all Responsible">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{responsible.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{responsible.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{responsible.email}"/>
+
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Details" action="responsible_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentResponsible}" value="#{responsible}" />
+                    </p:commandLink>
+                    <p:commandLink value="Update" action="admin_responsible_update?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentResponsible}" value="#{responsible}" />
+                    </p:commandLink>
+
+                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeResponsible}">
+                        <f:param name="responsibleID" id="responsibleID" value="#{responsible.id}" />
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <p:commandButton action="admin_responsible_create" value="New Responsible"></p:commandButton> 
+            <br></br>
+        </h:form>
+
+        <br></br><br></br>
+        <!-- //////////////////////////PARTICIPANT////////////////////////// -->
+        <div>Participants:</div>
+        <p:dataTable value="#{administratorManager.allParticipants}" 
+                     var="participant"
+                     summary="List of all Participant">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{participant.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{participant.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{participant.email}"/>
+
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Details" action="participant_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentParticipant}" value="#{participant}" />
+                    </p:commandLink>
+                    <p:commandLink value="Update" action="admin_participant_update?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentParticipant}" value="#{participant}" />
+                    </p:commandLink>
+
+                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeParticipant}">
+                        <f:param name="participantID" id="participantID" value="#{participant.id}" />
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <p:commandButton action="admin_participant_create" value="New Participant"></p:commandButton> 
+            <br></br>
+        </h:form>
+        <br></br>
+        <!-- //////////////////////////Event////////////////////////// -->
+        <div>Events:</div>
+        <p:dataTable value="#{administratorManager.allEvents}" 
+                     var="event"
+                     summary="List of all Event"
+                     >
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{event.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Date</f:facet>
+                <h:outputText value="#{event.date}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{event.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{event.type}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Local</f:facet>
+                <h:outputText value="#{event.local}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Responsible</f:facet>
+                <h:outputText value="#{event.responsible_name}"/>
+            </p:column>
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Details" action="event_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
+                    </p:commandLink>
+                    <p:commandLink value="Update" action="update_event?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
+                    </p:commandLink>
+
+                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeEvent}">
+                        <f:param name="eventID" id="eventID" value="#{event.id}" />
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <p:commandButton action="create_event" value="Create Event"></p:commandButton>
+        </h:form>
+        
+        <br></br>
+        <!-- //////////////////////////Subjects////////////////////////// -->
+        <div>Subjects</div>
+        <p:dataTable value="#{administratorManager.allSubjects}" 
+                     var="subject"
+                     summary="List of all Subject">
+            <p:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{subject.id}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{subject.name}"/>
+
+            </p:column>
+            <p:column>
+                <f:facet name="header">Ano</f:facet>
+                <h:outputText value="#{subject.courseYear}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Anolectivo</f:facet>
+                <h:outputText value="#{subject.scholarYear}"/>
+            </p:column>
+
+
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Details" action="event_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentSubject}" value="#{subject}" />
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+
+        <h:form>
+            <br></br>
+            <p:commandButton action="index" value="Back"></p:commandButton> 
+
+        </h:form>
+
+    </h:body>
+</html>
