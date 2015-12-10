@@ -21,12 +21,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.Path;
 
 /**
  *
  * @author UTIL
  */
 @Stateless
+@Path("/events")
 public class EventBean {
 
     @PersistenceContext

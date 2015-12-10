@@ -17,12 +17,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.Path;
 
 /**
  *
  * @author franc
  */
 @Stateless
+@Path("/subjects")
 public class SubjectBean {
 
     // Add business logic below. (Right-click in editor and choose

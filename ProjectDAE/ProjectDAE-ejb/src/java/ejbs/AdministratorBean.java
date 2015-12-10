@@ -18,12 +18,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.Path;
 
 /**
  *
  * @author paulovieira
  */
 @Stateless
+@Path("/administrators")
 public class AdministratorBean {
 
     @PersistenceContext(unitName = "ProjectDAE-ejbPU")
