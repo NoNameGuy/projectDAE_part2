@@ -21,7 +21,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -50,7 +53,7 @@ public class EventBean {
             }
 
             Event event = new Event(id, date, name, type, local, responsible);
-            
+
             responsible.addEvent(event);
 
             //System.out.println(event.toString());
@@ -66,15 +69,15 @@ public class EventBean {
     }
 
     public void updateEvent(int id, Date date, String name, String type, String local, int responsibleId) throws EntityDoesNotExistsException {
-        
+
         try {
             Event event = em.find(Event.class, id);
-            
+
             Responsible responsible = em.find(Responsible.class, responsibleId);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("There is no Responsible with that id.");
             }
-            
+
             if (event == null) {
             }
             event.setId(id);
@@ -85,15 +88,15 @@ public class EventBean {
             event.setResponsible(responsible);
 
             em.merge(event);
-            
+
         } catch (EntityDoesNotExistsException e) {
             throw e;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
 
     }
-    
+
 //    public void enrollParticipant(int eventId, int participantId) throws EntityDoesNotExistsException {
 //        try {
 //            Event event = em.find(Event.class, eventId);
@@ -111,7 +114,6 @@ public class EventBean {
 //            throw new EJBException(e.getMessage());
 //        }
 //    }
-    
 //    public void unEnrollParticipant(int eventId, int participantId) throws EntityDoesNotExistsException {
 //        try {
 //            Event event = em.find(Event.class, eventId);
@@ -127,14 +129,15 @@ public class EventBean {
 //        }
 //    }
 //    
-    public boolean isOpenInscriptions (int eventId) throws EntityDoesNotExistsException {
+    public boolean isOpenInscriptions(int eventId) throws EntityDoesNotExistsException {
         try {
             Event event = em.find(Event.class, eventId);
             if (event == null) {
                 throw new EntityDoesNotExistsException("There is no event with that id.");
             }
-            if( event.isOpenInscriptions() )
+            if (event.isOpenInscriptions()) {
                 return true;
+            }
 
         } catch (EntityDoesNotExistsException e) {
             throw e;
@@ -143,8 +146,8 @@ public class EventBean {
         }
         return false;
     }
-    
-    public void openInscriptions (int eventId) throws EntityDoesNotExistsException {
+
+    public void openInscriptions(int eventId) throws EntityDoesNotExistsException {
         try {
             Event event = em.find(Event.class, eventId);
             if (event == null) {
@@ -159,8 +162,8 @@ public class EventBean {
             throw new EJBException(e.getMessage());
         }
     }
-    
-    public void closeInscriptions (int eventId) throws EntityDoesNotExistsException {
+
+    public void closeInscriptions(int eventId) throws EntityDoesNotExistsException {
         try {
             Event event = em.find(Event.class, eventId);
             if (event == null) {
@@ -181,7 +184,7 @@ public class EventBean {
             if (event == null) {
                 throw new EntityDoesNotExistsException("There is no event with that id.");
             }
-            
+
             em.remove(event);
         } catch (EntityDoesNotExistsException e) {
             throw e;
@@ -190,6 +193,9 @@ public class EventBean {
         }
     }
 
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("all")
     public List<EventDTO> getAllEvents() {
         List<Event> events = (List<Event>) em.createNamedQuery("getAllEvents").getResultList();
         return eventsToDTOs(events);

@@ -21,7 +21,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -186,7 +189,10 @@ public class ParticipantBean {
             throw new EJBException(e.getMessage());
         }
     }
-
+    
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("all")
     public List<ParticipantDTO> getAllParticipants() {
         List<Participant> participants = (List<Participant>) em.createNamedQuery("getAllParticipants").getResultList();
         return participantsToDTOs(participants);

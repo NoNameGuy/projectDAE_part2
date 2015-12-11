@@ -26,6 +26,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -56,6 +60,9 @@ public class AdministratorManager {
     private EventDTO newEvent;
     private EventDTO currentEvent;
     private UIComponent component;
+    private Client client;
+    private final String baseUri
+            = "http://localhost:8080/AcademicManagement-war/webapi";
 
     /**
      * Creates a new instance of AdministratorManager
@@ -65,6 +72,7 @@ public class AdministratorManager {
         newResponsible = new ResponsibleDTO();
         newParticipant = new ParticipantDTO();
         newEvent = new EventDTO();
+        client = ClientBuilder.newClient();
     }
 
     //////////////////////////// Administrator \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -110,7 +118,18 @@ public class AdministratorManager {
     }
 
     public List<AdministratorDTO> getAllAdministrators() {
-        return administratorBean.getAllAdministrators();
+        return administratorBean.getAllAdministrators(); 
+    }
+    
+    
+    public List<AdministratorDTO> getAllAdministratorREST() {
+            List<AdministratorDTO> returnedAdministrators = null;
+            
+                returnedAdministrators = client.target(baseUri)
+                        .path("/administrators/all")
+                        .request(MediaType.APPLICATION_XML)
+                        .get(new GenericType<List<AdministratorDTO>>() {});
+                return returnedAdministrators;
     }
 
     //////////////////////////// Responsible \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -208,11 +227,11 @@ public class AdministratorManager {
             logger.warning("Problem removing user in method removeUser().");
         }
     }
-    
+
     public void printToScreen() {
-        
-            System.out.println("participant: " + listParticipants);
-            //System.out.println("event: " + currentEvent.getName());
+
+        System.out.println("participant: " + listParticipants);
+        //System.out.println("event: " + currentEvent.getName());
     }
 
     public List<ParticipantDTO> getAllParticipants() {
@@ -239,7 +258,6 @@ public class AdministratorManager {
         if( eventBean.isOpenInscriptions(eventId))
             eventBean.unEnrollParticipant(eventId, participantId);
     }*/
-    
     public void openInscription(ActionEvent event) throws EntityDoesNotExistsException {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("eventID");
@@ -249,9 +267,9 @@ public class AdministratorManager {
             logger.warning("Problem in method openInscription().");
         }
     }
-    
+
     public void closeInscription(ActionEvent event) throws EntityDoesNotExistsException {
-       try {
+        try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("eventID");
             int id = Integer.parseInt(param.getValue().toString());
             eventBean.closeInscriptions(id);
@@ -259,7 +277,7 @@ public class AdministratorManager {
             logger.warning("Problem in method closeInscription().");
         }
     }
-    
+
     public String createEvent() {
 
         try {
@@ -308,19 +326,19 @@ public class AdministratorManager {
     public List<EventDTO> getAllEvents() {
         return eventBean.getAllEvents();
     }
-    
+
     public List<ParticipantDTO> getEnrolledParticipants() throws EntityDoesNotExistsException {
-            return participantBean.getEnrolledParticipants(currentEvent.getId());
+        return participantBean.getEnrolledParticipants(currentEvent.getId());
     }
-    
+
     public List<ParticipantDTO> getUnrolledParticipants() throws EntityDoesNotExistsException {
-        return participantBean.getUnrolledParticipants(currentEvent.getId()); 
-            
+        return participantBean.getUnrolledParticipants(currentEvent.getId());
+
     }
-    
+
     public void enrollParticipants(ActionEvent event) throws EntityDoesNotExistsException, ParticipantEnrolledException {
-        
-        try{
+
+        try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("participantId");
             int id = Integer.parseInt(param.getValue().toString());
             //System.out.println("Participant Id: " + currentParticipant.getId() + "Event Id: " + currentEvent.getId());
@@ -328,11 +346,11 @@ public class AdministratorManager {
         } catch (Exception e) {
             logger.warning("Problem enrolling participant in method enrollParticipants().");
         }
-        
+
     }
-    
+
     public void unrollParticipants(ActionEvent event) throws EntityDoesNotExistsException, ParticipantNotEnrolledException {
-        try{
+        try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("participantId");
             int id = Integer.parseInt(param.getValue().toString());
             participantBean.unrollParticipant(id, 1);
@@ -340,16 +358,12 @@ public class AdministratorManager {
             logger.warning("Problem enrolling participant in method enrollParticipants().");
         }
     }
-    
+
     //////////////////////////// Subjects \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    
-    
     public List<SubjectDTO> getAllSubjects() {
         return subjectBean.getAllSubjects();
     }
-    
-    
-    
+
     public AdministratorBean getAdministratorBean() {
         return administratorBean;
     }
@@ -469,12 +483,5 @@ public class AdministratorManager {
     public void setListParticipants(List<ParticipantDTO> listParticipants) {
         this.listParticipants = listParticipants;
     }
-
-
-
-
-
-    
-    
 
 }
