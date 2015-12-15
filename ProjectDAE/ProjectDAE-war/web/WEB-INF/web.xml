@@ -18,7 +18,63 @@
             30
         </session-timeout>
     </session-config>
+
+    
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>faces/index_login.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AdministratorConstraint</web-resource-name>
+            <url-pattern>/webapi/students/all</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>ResponsibleConstraint</web-resource-name>
+            <url-pattern>/faces/responsible/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Responsible</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>ParticipantConstraint</web-resource-name>
+            <url-pattern>/faces/participant/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Participant</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>dae_project_realm</realm-name>
+        <!-- Nesta versão não precisamos de definir as páginas de login e error porque
+        estamos a usar login programático -->
+        <!--
+                <form-login-config>
+                    <form-login-page>/faces/login.xhtml</form-login-page>
+                    <form-error-page>/faces/error.xhtml</form-error-page>
+                </form-login-config>
+        -->
+    </login-config>
+    <security-role>
+        <role-name>Administrator</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Responsible</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Participant</role-name>
+    </security-role>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/error.xhtml</location>
+    </error-page>  
 </web-app>

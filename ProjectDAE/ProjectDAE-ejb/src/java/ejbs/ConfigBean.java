@@ -5,7 +5,6 @@
  */
 package ejbs;
 
-import static com.sun.xml.bind.util.CalendarConv.formatter;
 import java.text.SimpleDateFormat;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

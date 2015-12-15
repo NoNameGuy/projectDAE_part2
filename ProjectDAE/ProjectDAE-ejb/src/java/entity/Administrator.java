@@ -5,6 +5,7 @@
  */
 package entity;
 
+import entity.UserGroup.GROUP;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
@@ -25,7 +26,7 @@ public class Administrator extends User implements Serializable {
     }
     
     public Administrator(int id, String password, String name, String email) {
-        super(id, password, name, email);
+        super(id, password, GROUP.Administrator, name, email);
     }
     
     @Override

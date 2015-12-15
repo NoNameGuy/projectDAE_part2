@@ -5,6 +5,7 @@
  */
 package entity;
 
+import entity.UserGroup.GROUP;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class Participant extends User implements Serializable {
     }
 
     public Participant(int id, String password, String name, String email) {
-        super(id, password, name, email);
+        super(id, password, GROUP.Participant, name, email);
         events = new LinkedList<>();
         subjects = new LinkedList<>();
     }
