@@ -60,13 +60,14 @@ public class UserManager implements Serializable{
             return "/faces/admin/admin_index?faces-redirect=true";
         }
         
-        if(isUserInRole("Student")){
-            return "students/students_list_subjects?faces-redirect=true"; // TODO
+        if(isUserInRole("Participant")){
+            return "/faces/participant/participant_index?faces-redirect=true"; // TODO
         }        
 
-        if(isUserInRole("Teacher")){
-            return "teachers/teachers_list_subjects?faces-redirect=true"; // TODO
-        }        
+        if(isUserInRole("Responsible")){
+            return "/faces/responsible/responsible_index??faces-redirect=true"; // TODO
+        }
+      
                 
         this.loginFlag = false;
         return "/faces/error?faces-redirect=true";

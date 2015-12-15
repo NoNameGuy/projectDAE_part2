@@ -13,6 +13,7 @@ import dtos.ResponsibleDTO;
 import dtos.SubjectDTO;
 import ejbs.AdministratorBean;
 import ejbs.EventBean;
+import ejbs.EventParticipantBean;
 import ejbs.ParticipantBean;
 import ejbs.ResponsibleBean;
 import ejbs.SubjectBean;
@@ -45,6 +46,8 @@ public class AdministratorManager {
     private ResponsibleBean responsibleBean;
     @EJB
     private ParticipantBean participantBean;
+    @EJB
+    private EventParticipantBean eventParticipantBean;
     @EJB
     private EventBean eventBean;
     @EJB
@@ -258,6 +261,17 @@ public class AdministratorManager {
         if( eventBean.isOpenInscriptions(eventId))
             eventBean.unEnrollParticipant(eventId, participantId);
     }*/
+    
+    public void registerPresence(ActionEvent event) throws EntityDoesNotExistsException {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("eventID");
+            int id = Integer.parseInt(param.getValue().toString());
+            eventParticipantBean.registerPresence(id, currentParticipant.getName());
+        } catch (Exception e) {
+            logger.warning("Problem in method openInscription().");
+        }
+    }
+    
     public void openInscription(ActionEvent event) throws EntityDoesNotExistsException {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("eventID");
@@ -276,6 +290,17 @@ public class AdministratorManager {
         } catch (Exception e) {
             logger.warning("Problem in method closeInscription().");
         }
+    }
+    
+    public boolean isOpenInscriptions(ActionEvent event) throws EntityDoesNotExistsException {
+        try {
+            UIParameter param = (UIParameter) event.getComponent().findComponent("eventID");
+            int id = Integer.parseInt(param.getValue().toString());
+            return eventBean.isOpenInscriptions(id);
+        } catch (Exception e) {
+            logger.warning("Problem in method closeInscription().");
+        }
+        return false;
     }
 
     public String createEvent() {

@@ -27,7 +27,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdministratorConstraint</web-resource-name>
-            <url-pattern>/webapi/students/all</url-pattern>
+            <url-pattern>/faces/admin/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>

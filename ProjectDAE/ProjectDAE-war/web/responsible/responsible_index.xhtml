@@ -19,7 +19,7 @@ and open the template in the editor.
         <p:dataTable value="#{administratorManager.allResponsibles}" var="responsible">
             <p:column>
                 <f:facet name="header">Id</f:facet>
-                <h:outputText value="#{responsible.id}"/>
+                <h:outputText value="#{responsible.username}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">Name</f:facet>

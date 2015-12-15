@@ -20,7 +20,7 @@ and open the template in the editor.
                      summary="List Responsible detais">
             <p:column>
                 <f:facet name="header">Id</f:facet>
-                <h:outputText value="#{responsible.id}"/>
+                <h:outputText value="#{responsible.username}"/>
             </p:column>    
             <p:column>
                 <f:facet name="header">Name</f:facet>
@@ -54,9 +54,13 @@ and open the template in the editor.
                 <f:facet name="header">Local</f:facet>
                 <h:outputText value="#{event.local}"/>
             </p:column>
-            <p:column>
+            <p:column rendered="#{event.openInscriptions==true}">
                 <f:facet name="header">Open Inscriptions</f:facet>
                 <h:outputText value="#{event.openInscriptions}"/>
+            </p:column>
+            <p:column rendered="#{event.openInscriptions==false}">
+                <f:facet name="header">Close Inscriptions</f:facet>
+                <h:outputText value="#{event.closeInscriptions}"/>
             </p:column>
             <p:column>
                 <f:facet name="header">
