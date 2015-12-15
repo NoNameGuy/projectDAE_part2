@@ -36,13 +36,13 @@ public class AdministratorBean {
     
     //Create Admin
 
-    public void createAdmininstrator(int id, String password, String name, String email) 
+    public void createAdmininstrator(String username, String password, String name, String email) 
         throws EntityAlreadyExistsException, MyConstraintViolationException {
         try {
-            if(em.find(Administrator.class, id) != null){
+            if(em.find(Administrator.class, username) != null){
                 throw new EntityAlreadyExistsException("A Administrator with that usermane already exists.");
             }
-            em.persist(new Administrator(id, password, name, email));
+            em.persist(new Administrator(username, password, name, email));
         } catch (EntityAlreadyExistsException e) {
             throw e;
         } catch (ConstraintViolationException e) {
@@ -54,10 +54,10 @@ public class AdministratorBean {
 
     //Admin Update
     
-    public void updateAdministrator(int id, String name, String email, String password)
+    public void updateAdministrator(String username, String name, String email, String password)
             throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Administrator administrator = em.find(Administrator.class, id);
+            Administrator administrator = em.find(Administrator.class, username);
             if (administrator == null) {
                 throw new EntityDoesNotExistsException("There is no adminstrator with that username.");
             }
@@ -76,9 +76,9 @@ public class AdministratorBean {
 
     //remove admin
     
-    public void removeAdministrator(int id) throws EntityDoesNotExistsException, MyConstraintViolationException {
+    public void removeAdministrator(String username) throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Administrator administrator = em.find(Administrator.class, id);
+            Administrator administrator = em.find(Administrator.class, username);
             if (administrator == null) {
                 throw new EntityDoesNotExistsException("There is no adminstrator with that username.");
             }
@@ -94,9 +94,9 @@ public class AdministratorBean {
 
     //Verify if admin exists
     
-    public boolean existeAdministrator(int id) {
+    public boolean existeAdministrator(String username) {
         try {
-            return (em.find(Administrator.class, id) != null);
+            return (em.find(Administrator.class, username) != null);
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
@@ -113,7 +113,7 @@ public class AdministratorBean {
     
     AdministratorDTO administratorToDTO(Administrator administrator) {
         return new AdministratorDTO(
-                administrator.getId(),
+                administrator.getUsername(),
                 administrator.getPassword(),
                 administrator.getName(),
                 administrator.getEmail());

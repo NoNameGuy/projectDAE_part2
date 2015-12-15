@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserDTO implements Serializable {
 
-    protected int id;
+    protected String username;
     protected String password;
     protected String name;
     protected String email;
@@ -26,26 +26,26 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public UserDTO(int id, String password, String name, String email) {
-        this.id = id;
+    public UserDTO(String username, String password, String name, String email) {
+        this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
     }
 
     public void reset() {
-        setId(0);
+        setUsername(null);
         setPassword(null);
         setName(null);
         setEmail(null);
     }
 
-    public int getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

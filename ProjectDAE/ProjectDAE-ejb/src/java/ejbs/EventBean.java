@@ -40,14 +40,14 @@ public class EventBean {
     /*public List<String> list() {
         
      }*/
-    public void createEvent(int id, Date date, String name, String type, String local, int responsableId)
+    public void createEvent(int id, Date date, String name, String type, String local, String responsible_username)
             throws EntityAlreadyExistsException, EntityDoesNotExistsException, MyConstraintViolationException {
         try {
 
             if (em.find(Event.class, id) != null) {
                 throw new EntityAlreadyExistsException("A Event with that id already exists.");
             }
-            Responsible responsible = em.find(Responsible.class, responsableId);
+            Responsible responsible = em.find(Responsible.class, responsible_username);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("There is no Responsible with that id.");
             }
@@ -68,12 +68,12 @@ public class EventBean {
         }
     }
 
-    public void updateEvent(int id, Date date, String name, String type, String local, int responsibleId) throws EntityDoesNotExistsException {
+    public void updateEvent(int id, Date date, String name, String type, String local, String responsible_username) throws EntityDoesNotExistsException {
 
         try {
             Event event = em.find(Event.class, id);
 
-            Responsible responsible = em.find(Responsible.class, responsibleId);
+            Responsible responsible = em.find(Responsible.class, responsible_username);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("There is no Responsible with that id.");
             }
@@ -97,38 +97,7 @@ public class EventBean {
 
     }
 
-//    public void enrollParticipant(int eventId, int participantId) throws EntityDoesNotExistsException {
-//        try {
-//            Event event = em.find(Event.class, eventId);
-//            Participant participant = em.find(Participant.class, participantId);
-//            if (event == null || participant == null) {
-//                throw new EntityDoesNotExistsException("There is no event or participant with that id.");
-//            }
-//            event.addParticipant(participant);
-//            
-//            em.merge(event);
-//
-//        } catch (EntityDoesNotExistsException e) {
-//            throw e;
-//        } catch (Exception e) {
-//            throw new EJBException(e.getMessage());
-//        }
-//    }
-//    public void unEnrollParticipant(int eventId, int participantId) throws EntityDoesNotExistsException {
-//        try {
-//            Event event = em.find(Event.class, eventId);
-//            Participant participant = em.find(Participant.class, participantId);
-//            if (event == null || participant == null) {
-//                throw new EntityDoesNotExistsException("There is no event or participant with that id.");
-//            }
-//            event.removeParticipant(participant);
-//        } catch (EntityDoesNotExistsException e) {
-//            throw e;
-//        } catch (Exception e) {
-//            throw new EJBException(e.getMessage());
-//        }
-//    }
-//    
+
     public boolean isOpenInscriptions(int eventId) throws EntityDoesNotExistsException {
         try {
             Event event = em.find(Event.class, eventId);
@@ -201,9 +170,9 @@ public class EventBean {
         return eventsToDTOs(events);
     }
 
-    public List<EventDTO> getParticipantEvents(int id) throws EntityDoesNotExistsException {
+    public List<EventDTO> getParticipantEvents(String username) throws EntityDoesNotExistsException {
         try {
-            Participant participant = em.find(Participant.class, id);
+            Participant participant = em.find(Participant.class, username);
             if (participant == null) {
                 throw new EntityDoesNotExistsException("Participant does not exists.");
             }
@@ -215,9 +184,9 @@ public class EventBean {
         }
     }
 
-    public List<EventDTO> getResponsibleEvents(int id) throws EntityDoesNotExistsException {
+    public List<EventDTO> getResponsibleEvents(String username) throws EntityDoesNotExistsException {
         try {
-            Responsible responsible = em.find(Responsible.class, id);
+            Responsible responsible = em.find(Responsible.class, username);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("Responsible does not exists.");
             }
@@ -236,7 +205,7 @@ public class EventBean {
                 event.getName(),
                 event.getType(),
                 event.getLocal(),
-                event.getResponsible().getId(),
+                event.getResponsible().getUsername(),
                 event.getResponsible().getName(),
                 event.isOpenInscriptions());
     }

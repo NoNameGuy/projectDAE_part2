@@ -29,7 +29,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "EVENTS", uniqueConstraints
-        = @UniqueConstraint(columnNames = {"NAME", "RESPONSIBLE_ID"}))
+        = @UniqueConstraint(columnNames = {"NAME", "RESPONSIBLE_USERNAME"}))
 @NamedQueries({
     @NamedQuery(name = "getAllEvents",
             query = "SELECT e FROM Event e ORDER BY e.date")
@@ -54,11 +54,11 @@ public class Event implements Serializable {
             joinColumns
             = @JoinColumn(name = "EVENT_ID", referencedColumnName = "ID"),
             inverseJoinColumns
-            = @JoinColumn(name = "PARTICIPANT_ID", referencedColumnName = "ID"))
+            = @JoinColumn(name = "PARTICIPANT_USERNAME", referencedColumnName = "USERNAME"))
     private List<Participant> participants;
     
     @ManyToOne
-    @JoinColumn(name = "RESPONSIBLE_ID")
+    @JoinColumn(name = "RESPONSIBLE_USERNAME")
     @NotNull
     private Responsible responsible;
     private boolean openInscriptions;

@@ -46,7 +46,7 @@ public class Subject implements Serializable {
             joinColumns
             = @JoinColumn(name = "SUBJECT_ID", referencedColumnName = "ID"),
             inverseJoinColumns
-            = @JoinColumn(name = "PARTICIPANT_ID", referencedColumnName = "ID"))
+            = @JoinColumn(name = "PARTICIPANT_USERNAME", referencedColumnName = "USERNAME"))
     private List<Participant> participants;
 
     public Subject() {

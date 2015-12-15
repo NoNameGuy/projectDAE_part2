@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "ADIMISTRATORS")
-    @NamedQuery(name = "getAllAdministrators", query = "SELECT a FROM Administrator a ORDER BY a.name")
+    @NamedQuery(name = "getAllAdministrators", query = "SELECT a FROM Administrator a ORDER BY a.username")
 
 public class Administrator extends User implements Serializable {
     
@@ -25,13 +25,13 @@ public class Administrator extends User implements Serializable {
 
     }
     
-    public Administrator(int id, String password, String name, String email) {
-        super(id, password, GROUP.Administrator, name, email);
+    public Administrator(String username, String password, String name, String email) {
+        super(username, password, GROUP.Administrator, name, email);
     }
     
     @Override
     public String toString() {
-        return "Administrator{" + "username=" + id + ", password=" + password + ", name=" + name + ", email=" + email + '}';
+        return "Administrator{" + "username=" + username + ", password=" + password + ", name=" + name + ", email=" + email + '}';
     }
 
     

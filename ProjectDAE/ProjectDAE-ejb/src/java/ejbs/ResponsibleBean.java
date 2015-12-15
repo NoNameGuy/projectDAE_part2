@@ -40,13 +40,13 @@ public class ResponsibleBean {
     }
 
     //Create Responsible
-    public void createResponsible(int id, String password, String name, String email)
+    public void createResponsible(String username, String password, String name, String email)
             throws EntityAlreadyExistsException, MyConstraintViolationException {
         try {
-            if (em.find(Responsible.class, id) != null) {
+            if (em.find(Responsible.class, username) != null) {
                 throw new EntityAlreadyExistsException("A Responsible with that usermane already exists.");
             }
-            em.persist(new Responsible(id, password, name, email));
+            em.persist(new Responsible(username, password, name, email));
         } catch (EntityAlreadyExistsException e) {
             throw e;
         } catch (ConstraintViolationException e) {
@@ -57,10 +57,10 @@ public class ResponsibleBean {
     }
 
     //Responsible Update
-    public void updateResponsible(int id, String password, String name, String email)
+    public void updateResponsible(String username, String password, String name, String email)
             throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Responsible responsible = em.find(Responsible.class, id);
+            Responsible responsible = em.find(Responsible.class, username);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("There is no responsible with that username.");
             }
@@ -78,10 +78,10 @@ public class ResponsibleBean {
     }
 
     //remove Responsible
-    public void removeResponsible(int id)
+    public void removeResponsible(String username)
             throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Responsible responsible = em.find(Responsible.class, id);
+            Responsible responsible = em.find(Responsible.class, username);
             if (responsible == null) {
                 throw new EntityDoesNotExistsException("There is no participant with that username.");
             }
@@ -96,9 +96,9 @@ public class ResponsibleBean {
     }
 
     //Verify if responsible exists
-    public boolean existeResponsible(String id) {
+    public boolean existeResponsible(String username) {
         try {
-            return em.find(Responsible.class, id) != null;
+            return em.find(Responsible.class, username) != null;
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
@@ -149,7 +149,7 @@ public class ResponsibleBean {
 
     ResponsibleDTO responsibleToDTO(Responsible responsible) {
         return new ResponsibleDTO(
-                responsible.getId(),
+                responsible.getUsername(),
                 responsible.getPassword(),
                 responsible.getName(),
                 responsible.getEmail());

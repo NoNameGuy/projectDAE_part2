@@ -24,9 +24,9 @@ import javax.persistence.Table;
 @Table(name = "PARTICIPANTS")
 @NamedQueries({
     @NamedQuery(name = "getAllParticipants",
-            query = "SELECT p FROM Participant p ORDER BY p.name"),
+            query = "SELECT p FROM Participant p ORDER BY p.username"),
     /*@NamedQuery(name = "getAllEventParticipants",
-            query = "SELECT p FROM Participant p WHERE p.events.id = :eventId ORDER BY p.name")*/
+            query = "SELECT p FROM Participant p WHERE p.events.username = :eventId ORDER BY p.name")*/
 
 })
 
@@ -43,8 +43,8 @@ public class Participant extends User implements Serializable {
         subjects = new LinkedList<>();
     }
 
-    public Participant(int id, String password, String name, String email) {
-        super(id, password, GROUP.Participant, name, email);
+    public Participant(String username, String password, String name, String email) {
+        super(username, password, GROUP.Participant, name, email);
         events = new LinkedList<>();
         subjects = new LinkedList<>();
     }
@@ -75,7 +75,7 @@ public class Participant extends User implements Serializable {
 
     @Override
     public String toString() {
-        return "Participant{" + "username=" + id + ", password=" + password + ", name=" + name + ", email=" + email + '}';
+        return "Participant{" + "username=" + username + ", password=" + password + ", name=" + name + ", email=" + email + '}';
     }
 
 }

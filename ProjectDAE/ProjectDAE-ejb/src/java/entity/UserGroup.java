@@ -21,33 +21,34 @@ import javax.persistence.OneToOne;
 @Entity(name = "USERS_GROUPS")
 public class UserGroup implements Serializable {
 
+
     public static enum GROUP {
         Administrator, Responsible, Participant
     }
 
     @Id
     @Enumerated(EnumType.STRING)
-    private GROUP groupName;
+    private GROUP group_Name;
 
     @Id
     @OneToOne
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "USERNAME")
     private User user;
 
     public UserGroup() {
     }
 
-    public UserGroup(GROUP groupName, User user) {
-        this.groupName = groupName;
+    public UserGroup(GROUP group_Name, User user) {
+        this.group_Name = group_Name;
         this.user = user;
     }
 
-    public GROUP getGroupName() {
-        return groupName;
+    public GROUP getGroup_Name() {
+        return group_Name;
     }
 
-    public void setGroupName(GROUP groupName) {
-        this.groupName = groupName;
+    public void setGroup_Name(GROUP group_Name) {
+        this.group_Name = group_Name;
     }
 
     public User getUser() {
@@ -61,7 +62,7 @@ public class UserGroup implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.groupName);
+        hash = 29 * hash + Objects.hashCode(this.group_Name);
         hash = 29 * hash + Objects.hashCode(this.user);
         return hash;
     }
@@ -78,7 +79,7 @@ public class UserGroup implements Serializable {
             return false;
         }
         final UserGroup other = (UserGroup) obj;
-        if (this.groupName != other.groupName) {
+        if (this.group_Name != other.group_Name) {
             return false;
         }
         if (!Objects.equals(this.user, other.user)) {

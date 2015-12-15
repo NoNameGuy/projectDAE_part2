@@ -24,7 +24,7 @@ public class EventDTO implements Serializable {
     private String name;
     private String type;
     private String local;
-    private int responsible_id;
+    private String responsible_username;
     private String responsible_name;
     private boolean openInscriptions;
     
@@ -32,13 +32,13 @@ public class EventDTO implements Serializable {
         
     }
 
-    public EventDTO(int id, Date date, String name, String type, String local, int responsible_id, String responsible_name, boolean openInscriptions) {
+    public EventDTO(int id, Date date, String name, String type, String local, String responsible_username, String responsible_name, boolean openInscriptions) {
         this.id = id;
         this.date = date;
         this.name = name;
         this.type = type;
         this.local = local;
-        this.responsible_id = responsible_id;
+        this.responsible_username = responsible_username;
         this.responsible_name = responsible_name;
         this.openInscriptions = openInscriptions;
 
@@ -51,7 +51,7 @@ public class EventDTO implements Serializable {
         this.name = null;
         this.type = null;
         this.local = null;
-        this.responsible_id = 0;
+        this.responsible_username = null;
         this.responsible_name = null;
      
     }
@@ -96,12 +96,12 @@ public class EventDTO implements Serializable {
         this.local = local;
     }
 
-    public int getResponsible_id() {
-        return responsible_id;
+    public String getResponsible_username() {
+        return responsible_username;
     }
 
-    public void setResponsible_id(int responsible_id) {
-        this.responsible_id = responsible_id;
+    public void setResponsible_username(String responsible_username) {
+        this.responsible_username = responsible_username;
     }
 
     public String getResponsible_name() {

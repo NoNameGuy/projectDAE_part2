@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Table(name = "RESPONSIBLES")
 @NamedQueries({
     @NamedQuery(name = "getAllResponsibles",
-            query = "SELECT r FROM Responsible r ORDER BY r.name")
+            query = "SELECT r FROM Responsible r ORDER BY r.username")
 })
 
 public class Responsible extends User implements Serializable {
@@ -36,8 +36,8 @@ public class Responsible extends User implements Serializable {
         events = new LinkedList<>();
     }
  
-    public Responsible(int id, String password, String name, String email) {
-        super(id, password, GROUP.Responsible, name, email);
+    public Responsible(String username, String password, String name, String email) {
+        super(username, password, GROUP.Responsible, name, email);
         events = new LinkedList<>();
     }
 
@@ -59,6 +59,6 @@ public class Responsible extends User implements Serializable {
     
     @Override
     public String toString() {
-        return "Responsible{" + "username=" + id + ", password=" + password + ", name=" + name + ", email=" + email + '}';
+        return "Responsible{" + "username=" + username + ", password=" + password + ", name=" + name + ", email=" + email + '}';
     }
 }

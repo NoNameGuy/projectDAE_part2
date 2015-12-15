@@ -22,7 +22,7 @@ and open the template in the editor.
                      summary="List of all Administrators">
             <p:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{administrator.id}"/>
+                <h:outputText value="#{administrator.username}"/>
 
             </p:column>
             <p:column>
@@ -46,7 +46,7 @@ and open the template in the editor.
                     </p:commandLink>
 
                     <p:commandLink value="Remove" actionListener="#{administratorManager.removeAdministrator}">
-                        <f:param name="administratorID" id="administratorID" value="#{administrator.id}"/>
+                        <f:param name="administratorID" id="administratorID" value="#{administrator.username}"/>
                     </p:commandLink>
 
                 </h:form>
@@ -66,7 +66,7 @@ and open the template in the editor.
                      summary="List of all Responsible">
             <p:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{responsible.id}"/>
+                <h:outputText value="#{responsible.username}"/>
 
             </p:column>
             <p:column>
@@ -93,7 +93,7 @@ and open the template in the editor.
                     </p:commandLink>
 
                     <p:commandLink value="Remove" actionListener="#{administratorManager.removeResponsible}">
-                        <f:param name="responsibleID" id="responsibleID" value="#{responsible.id}" />
+                        <f:param name="responsibleID" id="responsibleID" value="#{responsible.username}" />
                     </p:commandLink>
                 </h:form>
             </p:column>
@@ -112,7 +112,7 @@ and open the template in the editor.
                      summary="List of all Participant">
             <p:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{participant.id}"/>
+                <h:outputText value="#{participant.username}"/>
 
             </p:column>
             <p:column>
@@ -139,7 +139,7 @@ and open the template in the editor.
                     </p:commandLink>
 
                     <p:commandLink value="Remove" actionListener="#{administratorManager.removeParticipant}">
-                        <f:param name="participantID" id="participantID" value="#{participant.id}" />
+                        <f:param name="participantID" id="participantID" value="#{participant.username}" />
                     </p:commandLink>
                 </h:form>
             </p:column>
@@ -229,19 +229,7 @@ and open the template in the editor.
             <p:column>
                 <f:facet name="header">Anolectivo</f:facet>
                 <h:outputText value="#{subject.scholarYear}"/>
-            </p:column>
-
-
-            <p:column>
-                <f:facet name="header">
-                    <h:outputText value="Actions" />
-                </f:facet>
-                <h:form>
-                    <p:commandLink value="Details" action="event_details?faces-redirect=true">
-                        <f:setPropertyActionListener target="#{administratorManager.currentSubject}" value="#{subject}" />
-                    </p:commandLink>
-                </h:form>
-            </p:column>
+            </p:column>            
         </p:dataTable>
 
         <h:form>

@@ -38,13 +38,13 @@ public class ParticipantBean {
     private EntityManager em;
 
     //Create Participant
-    public void createParticipant(int id, String password, String name, String email)
+    public void createParticipant(String username, String password, String name, String email)
             throws EntityAlreadyExistsException, MyConstraintViolationException {
         try {
-            if (em.find(Participant.class, id) != null) {
+            if (em.find(Participant.class, username) != null) {
                 throw new EntityAlreadyExistsException("A Participant with that usermane already exists.");
             }
-            em.persist(new Participant(id, password, name, email));
+            em.persist(new Participant(username, password, name, email));
         } catch (EntityAlreadyExistsException e) {
             throw e;
         } catch (ConstraintViolationException e) {
@@ -55,10 +55,10 @@ public class ParticipantBean {
     }
 
     //Participant Update
-    public void updateParticipant(int id, String password, String name, String email)
+    public void updateParticipant(String username, String password, String name, String email)
             throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Participant participant = em.find(Participant.class, id);
+            Participant participant = em.find(Participant.class, username);
             if (participant == null) {
                 throw new EntityDoesNotExistsException("There is no participant with that username.");
             }
@@ -76,10 +76,10 @@ public class ParticipantBean {
     }
 
     //remove Participant
-    public void removeParticipant(int id)
+    public void removeParticipant(String username)
             throws EntityDoesNotExistsException, MyConstraintViolationException {
         try {
-            Participant participant = em.find(Participant.class, id);
+            Participant participant = em.find(Participant.class, username);
             if (participant == null) {
                 throw new EntityDoesNotExistsException("There is no participant with that username.");
             }
@@ -104,7 +104,7 @@ public class ParticipantBean {
 
     
 
-    public void enrollParticipant(int id, int id_event)
+    public void enrollParticipant(String username, int id_event)
             throws EntityDoesNotExistsException, ParticipantEnrolledException {
         try {
             Event event = em.find(Event.class, id_event);
@@ -112,7 +112,7 @@ public class ParticipantBean {
                 throw new EntityDoesNotExistsException("There is no event with that id.");
             }
 
-            Participant participant = em.find(Participant.class, id);
+            Participant participant = em.find(Participant.class, username);
             if (participant == null) {
                 throw new EntityDoesNotExistsException("There is no participant with that username.");
             }
@@ -130,7 +130,7 @@ public class ParticipantBean {
         }
     }
     
-    public void unrollParticipant(int id, int id_event)
+    public void unrollParticipant(String id, int id_event)
             throws EntityDoesNotExistsException, ParticipantNotEnrolledException {
         try {
             Event event = em.find(Event.class, id_event);
@@ -202,7 +202,7 @@ public class ParticipantBean {
 
     ParticipantDTO participantToDTO(Participant participant) {
         return new ParticipantDTO(
-                participant.getId(),
+                participant.getUsername(),
                 participant.getPassword(),
                 participant.getName(),
                 participant.getEmail());

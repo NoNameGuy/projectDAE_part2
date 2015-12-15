@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package webpackage;
+package web;
 
 import static com.sun.xml.ws.security.addressing.impl.policy.Constants.logger;
 import dtos.AdministratorDTO;
@@ -80,13 +80,13 @@ public class AdministratorManager {
 
         try {
             administratorBean.createAdmininstrator(
-                    newAdministrator.getId(),
+                    newAdministrator.getUsername(),
                     newAdministrator.getPassword(),
                     newAdministrator.getName(),
                     newAdministrator.getEmail());
             newAdministrator.reset();
 
-            return "AdminPage?faces-redirect=true";
+            return "admin/AdminPage?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,7 +96,7 @@ public class AdministratorManager {
     public String updateAdministrator() {
         try {
             administratorBean.updateAdministrator(
-                    currentAdministrator.getId(),
+                    currentAdministrator.getUsername(),
                     currentAdministrator.getName(),
                     currentAdministrator.getEmail(),
                     currentAdministrator.getPassword());
@@ -110,8 +110,8 @@ public class AdministratorManager {
     public void removeAdministrator(ActionEvent event) {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("administratorID");
-            int id = Integer.parseInt(param.getValue().toString());
-            administratorBean.removeAdministrator(id);
+            String username = param.getValue().toString();
+            administratorBean.removeAdministrator(username);
         } catch (Exception e) {
             logger.warning("Problem removing user in method removeUser().");
         }
@@ -137,7 +137,7 @@ public class AdministratorManager {
 
         try {
             responsibleBean.createResponsible(
-                    newResponsible.getId(),
+                    newResponsible.getUsername(),
                     newResponsible.getPassword(),
                     newResponsible.getName(),
                     newResponsible.getEmail());
@@ -152,7 +152,7 @@ public class AdministratorManager {
     public String updateResponsible() {
         try {
             responsibleBean.updateResponsible(
-                    currentResponsible.getId(),
+                    currentResponsible.getUsername(),
                     currentResponsible.getPassword(),
                     currentResponsible.getName(),
                     currentResponsible.getEmail());
@@ -167,8 +167,8 @@ public class AdministratorManager {
     public void removeResponsible(ActionEvent event) {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("responsibleID");
-            int id = Integer.parseInt(param.getValue().toString());
-            responsibleBean.removeResponsible(id);
+            String username = param.getValue().toString();
+            responsibleBean.removeResponsible(username);
         } catch (Exception e) {
             logger.warning("Problem removing user in method removeUser().");
         }
@@ -180,7 +180,7 @@ public class AdministratorManager {
 
     public List<EventDTO> getCurrentResponsibleEvents() {
         try {
-            return eventBean.getResponsibleEvents(currentResponsible.getId());
+            return eventBean.getResponsibleEvents(currentResponsible.getUsername());
         } catch (Exception e) {
             return null;
         }
@@ -191,7 +191,7 @@ public class AdministratorManager {
 
         try {
             participantBean.createParticipant(
-                    newParticipant.getId(),
+                    newParticipant.getUsername(),
                     newParticipant.getPassword(),
                     newParticipant.getName(),
                     newParticipant.getEmail());
@@ -206,7 +206,7 @@ public class AdministratorManager {
     public String updateParticipant() {
         try {
             participantBean.updateParticipant(
-                    currentParticipant.getId(),
+                    currentParticipant.getUsername(),
                     currentParticipant.getPassword(),
                     currentParticipant.getName(),
                     currentParticipant.getEmail());
@@ -221,8 +221,8 @@ public class AdministratorManager {
     public void removeParticipant(ActionEvent event) {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("participantID");
-            int id = Integer.parseInt(param.getValue().toString());
-            participantBean.removeParticipant(id);
+            String username = param.getValue().toString();
+            participantBean.removeParticipant(username);
         } catch (Exception e) {
             logger.warning("Problem removing user in method removeUser().");
         }
@@ -241,7 +241,7 @@ public class AdministratorManager {
 
     public List<EventDTO> getCurrentParticipantEvents() {
         try {
-            return eventBean.getParticipantEvents(currentParticipant.getId());
+            return eventBean.getParticipantEvents(currentParticipant.getUsername());
         } catch (Exception e) {
             return null;
         }
@@ -287,7 +287,7 @@ public class AdministratorManager {
                     newEvent.getName(),
                     newEvent.getType(),
                     newEvent.getLocal(),
-                    newEvent.getResponsible_id());
+                    newEvent.getResponsible_username());
             newEvent.reset();
             return "AdminPage?faces-redirect=true";
         } catch (Exception e) {
@@ -314,7 +314,7 @@ public class AdministratorManager {
                     currentEvent.getName(),
                     currentEvent.getType(),
                     currentEvent.getLocal(),
-                    currentEvent.getResponsible_id());
+                    currentEvent.getResponsible_username());
 
             return "AdminPage?faces-redirect=true";
         } catch (Exception e) {
@@ -340,9 +340,9 @@ public class AdministratorManager {
 
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("participantId");
-            int id = Integer.parseInt(param.getValue().toString());
+            String username = param.getValue().toString();
             //System.out.println("Participant Id: " + currentParticipant.getId() + "Event Id: " + currentEvent.getId());
-            participantBean.enrollParticipant(id, currentEvent.getId());
+            participantBean.enrollParticipant(username, currentEvent.getId());
         } catch (Exception e) {
             logger.warning("Problem enrolling participant in method enrollParticipants().");
         }
@@ -352,8 +352,8 @@ public class AdministratorManager {
     public void unrollParticipants(ActionEvent event) throws EntityDoesNotExistsException, ParticipantNotEnrolledException {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("participantId");
-            int id = Integer.parseInt(param.getValue().toString());
-            participantBean.unrollParticipant(id, 1);
+            String username = param.getValue().toString();
+            participantBean.unrollParticipant(username, 1);
         } catch (Exception e) {
             logger.warning("Problem enrolling participant in method enrollParticipants().");
         }

@@ -33,11 +33,11 @@ import javax.validation.constraints.Pattern;
 @Table(name = "USERS")
 @NamedQuery(
         name = "getAllUsers",
-        query = "SELECT u FROM User u ORDER BY u.name")
+        query = "SELECT u FROM User u ORDER BY u.username")
 public class User implements Serializable {
 
     @Id
-    protected int id;
+    protected String username;
     @NotNull(message = "Password must not be empty")
     protected String password;
     @NotNull(message = "Name must not be empty")
@@ -52,20 +52,20 @@ public class User implements Serializable {
 
     }
 
-    public User(int id, String password, GROUP group, String name, String email) {
-        this.id = id;
+    public User(String id, String password, GROUP group, String name, String email) {
+        this.username = id;
         this.password = hashPassword(password);
         this.group = new UserGroup(group, this);
         this.name = name;
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -105,6 +105,14 @@ public class User implements Serializable {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new String(encoded);
+    }
+
+    public UserGroup getGroup() {
+        return group;
+    }
+
+    public void setGroup(UserGroup group) {
+        this.group = group;
     }
 
 }

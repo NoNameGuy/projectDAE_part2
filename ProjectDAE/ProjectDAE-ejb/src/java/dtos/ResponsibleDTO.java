@@ -21,8 +21,8 @@ public class ResponsibleDTO extends UserDTO implements Serializable {
     public ResponsibleDTO() {
     }
 
-    public ResponsibleDTO(int id, String password, String name, String email) {
-        super(id, password, name, email);
+    public ResponsibleDTO(String username, String password, String name, String email) {
+        super(username, password, name, email);
     }
     
     

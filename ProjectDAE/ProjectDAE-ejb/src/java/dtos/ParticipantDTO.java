@@ -22,8 +22,8 @@ public class ParticipantDTO extends UserDTO implements Serializable {
     public ParticipantDTO() {
     }
 
-    public ParticipantDTO(int id, String password, String name, String email) {
-        super(id, password, name, email);
+    public ParticipantDTO(String username, String password, String name, String email) {
+        super(username, password, name, email);
     }
 
 }
