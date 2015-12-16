@@ -21,12 +21,16 @@ import exceptions.EntityDoesNotExistsException;
 import exceptions.ParticipantEnrolledException;
 import exceptions.ParticipantNotEnrolledException;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
@@ -89,7 +93,7 @@ public class AdministratorManager {
                     newAdministrator.getEmail());
             newAdministrator.reset();
 
-            return "admin/AdminPage?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +107,7 @@ public class AdministratorManager {
                     currentAdministrator.getName(),
                     currentAdministrator.getEmail(),
                     currentAdministrator.getPassword());
-            return "AdminPage?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             logger.warning("Problem updating user in method updateUser().");
         }
@@ -133,6 +137,10 @@ public class AdministratorManager {
                         .request(MediaType.APPLICATION_XML)
                         .get(new GenericType<List<AdministratorDTO>>() {});
                 return returnedAdministrators;
+    }
+    
+    public String returnToAdminPage() {
+        return "/faces/admin/admin_index?faces-redirect=true";
     }
 
     //////////////////////////// Responsible \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -248,6 +256,34 @@ public class AdministratorManager {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    //////////////////////////// Users \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    public String getLoggedCurrentResponsible() {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        System.out.println("username: "+ request.getUserPrincipal().getName());
+        try {
+            currentResponsible = responsibleBean.responsibleToDTO(responsibleBean.getResponsibleByUsername(request.getUserPrincipal().getName()));
+            
+        } catch (Exception e) {
+            logger.warning("Problem removing user in method getLoggedCurrentResponsible().");
+        }
+        return currentResponsible.getUsername();
+    }
+    
+    public String getLoggedCurrentParticipant() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        System.out.println("username: "+ request.getUserPrincipal().getName());
+        try {
+            currentParticipant = participantBean.participantToDTO(participantBean.getParticipantByUsername(request.getUserPrincipal().getName()));
+            
+        } catch (Exception e) {
+            logger.warning("Problem removing user in method getLoggedCurrentParticipant().");
+        }
+        return currentParticipant.getUsername();
     }
 
     //////////////////////////// Event \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

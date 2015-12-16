@@ -62,7 +62,7 @@ public class ResponsibleBean {
         try {
             Responsible responsible = em.find(Responsible.class, username);
             if (responsible == null) {
-                throw new EntityDoesNotExistsException("There is no responsible with that username.");
+                throw new EntityDoesNotExistsException("There is no Responsible with that username.");
             }
             responsible.setPassword(password);
             responsible.setName(name);
@@ -83,7 +83,7 @@ public class ResponsibleBean {
         try {
             Responsible responsible = em.find(Responsible.class, username);
             if (responsible == null) {
-                throw new EntityDoesNotExistsException("There is no participant with that username.");
+                throw new EntityDoesNotExistsException("There is no Responsible with that username.");
             }
             em.remove(responsible);
         } catch (EntityDoesNotExistsException e) {
@@ -147,7 +147,7 @@ public class ResponsibleBean {
         return responsiblesToDTOs(responsibles);
     }
 
-    ResponsibleDTO responsibleToDTO(Responsible responsible) {
+    public ResponsibleDTO responsibleToDTO(Responsible responsible) {
         return new ResponsibleDTO(
                 responsible.getUsername(),
                 responsible.getPassword(),
@@ -155,11 +155,27 @@ public class ResponsibleBean {
                 responsible.getEmail());
     }
 
-    List<ResponsibleDTO> responsiblesToDTOs(List<Responsible> responsibles) {
+    public List<ResponsibleDTO> responsiblesToDTOs(List<Responsible> responsibles) {
         List<ResponsibleDTO> dtos = new ArrayList<>();
         for (Responsible r : responsibles) {
             dtos.add(responsibleToDTO(r));
         }
         return dtos;
+    }
+
+    public Responsible getResponsibleByUsername(String username) throws MyConstraintViolationException, EntityDoesNotExistsException {
+        try {
+            Responsible responsible = em.find(Responsible.class, username);
+            if (responsible == null) {
+                throw new EntityDoesNotExistsException("There is no Responsible with that username.");
+            }
+            return responsible;
+        } catch (EntityDoesNotExistsException e) {
+            throw e;
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(Utils.getConstraintViolationMessages(e));
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
     }
 }

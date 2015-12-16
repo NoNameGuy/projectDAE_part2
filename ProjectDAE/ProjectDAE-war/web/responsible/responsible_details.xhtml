@@ -10,6 +10,12 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <div>
+            <h:form> 
+                <h:outputText value="Logged as: #{administratorManager.loggedCurrentResponsible}"/>
+                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+            </h:form>
+        </div>
         <title>Responsible Detais</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
@@ -19,7 +25,7 @@ and open the template in the editor.
                      var="responsible"
                      summary="List Responsible detais">
             <p:column>
-                <f:facet name="header">Id</f:facet>
+                <f:facet name="header">Username</f:facet>
                 <h:outputText value="#{responsible.username}"/>
             </p:column>    
             <p:column>
@@ -54,14 +60,11 @@ and open the template in the editor.
                 <f:facet name="header">Local</f:facet>
                 <h:outputText value="#{event.local}"/>
             </p:column>
-            <p:column rendered="#{event.openInscriptions==true}">
+            <p:column>
                 <f:facet name="header">Open Inscriptions</f:facet>
-                <h:outputText value="#{event.openInscriptions}"/>
+                <h:outputText value="#{event.openInscription}"/>
             </p:column>
-            <p:column rendered="#{event.openInscriptions==false}">
-                <f:facet name="header">Close Inscriptions</f:facet>
-                <h:outputText value="#{event.closeInscriptions}"/>
-            </p:column>
+            
             <p:column>
                 <f:facet name="header">
                     <h:outputText value="Actions" />
@@ -72,13 +75,13 @@ and open the template in the editor.
                     </p:commandLink>
                 </h:form>
 
-                <h:form rendered="#{!event.openInscriptions}">
+                <h:form rendered="#{!event.openInscription}">
                     <p:commandLink value="Open inscriptions" actionListener="#{administratorManager.openInscription}">
                         <f:param name="eventID" id="eventID" value="#{event.id}"/>
                     </p:commandLink>
                 </h:form>    
 
-                <h:form rendered="#{event.openInscriptions}">
+                <h:form rendered="#{event.openInscription}">
                     <p:commandLink value="Close inscriptions" actionListener="#{administratorManager.closeInscription}">
                         <f:param name="eventID" id="eventID" value="#{event.id}"/>
                     </p:commandLink>

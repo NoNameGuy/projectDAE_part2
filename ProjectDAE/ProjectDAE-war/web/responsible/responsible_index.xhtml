@@ -14,7 +14,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
+        <div>
+            <h:form> 
+                <h:outputText value="Logged as: #{userManager.username}"/>
+                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+            </h:form>
+        </div>
         <div>Responsibles:</div>
         <p:dataTable value="#{administratorManager.allResponsibles}" var="responsible">
             <p:column>

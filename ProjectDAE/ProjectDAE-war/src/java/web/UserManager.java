@@ -52,25 +52,24 @@ public class UserManager implements Serializable{
             request.login(this.username, this.password);
         } catch (ServletException e) {
             logger.log(Level.WARNING, e.getMessage());
-            return "/faces/error?faces-redirect=true";
-            //return "/faces/error?faces-redirect=true";
+            return "faces/error?faces-redirect=true";
         }
         
         if(isUserInRole("Administrator")){
-            return "/faces/admin/admin_index?faces-redirect=true";
+            return "faces/admin/admin_index?faces-redirect=true";
         }
         
         if(isUserInRole("Participant")){
-            return "/faces/participant/participant_index?faces-redirect=true"; // TODO
+            return "faces/participant/participant_details?faces-redirect=true"; // TODO
         }        
 
         if(isUserInRole("Responsible")){
-            return "/faces/responsible/responsible_index??faces-redirect=true"; // TODO
+            return "faces/responsible/responsible_details??faces-redirect=true"; // TODO
         }
       
                 
         this.loginFlag = false;
-        return "/faces/error?faces-redirect=true";
+        return "faces/error?faces-redirect=true";
     }	
     
     public String logout() {

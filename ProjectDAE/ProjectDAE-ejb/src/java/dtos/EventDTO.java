@@ -112,7 +112,7 @@ public class EventDTO implements Serializable {
         this.responsible_name = responsible_name;
     }
 
-    public boolean isOpenInscriptions() {
+    public boolean isOpenInscription() {
         return openInscriptions;
     }
 

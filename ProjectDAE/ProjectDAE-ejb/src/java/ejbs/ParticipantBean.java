@@ -60,7 +60,7 @@ public class ParticipantBean {
         try {
             Participant participant = em.find(Participant.class, username);
             if (participant == null) {
-                throw new EntityDoesNotExistsException("There is no participant with that username.");
+                throw new EntityDoesNotExistsException("There is no Participant with that username.");
             }
             participant.setPassword(password);
             participant.setName(name);
@@ -81,7 +81,7 @@ public class ParticipantBean {
         try {
             Participant participant = em.find(Participant.class, username);
             if (participant == null) {
-                throw new EntityDoesNotExistsException("There is no participant with that username.");
+                throw new EntityDoesNotExistsException("There is no Participant with that username.");
             }
             em.remove(participant);
         } catch (EntityDoesNotExistsException e) {
@@ -200,7 +200,7 @@ public class ParticipantBean {
     
     
 
-    ParticipantDTO participantToDTO(Participant participant) {
+    public ParticipantDTO participantToDTO(Participant participant) {
         return new ParticipantDTO(
                 participant.getUsername(),
                 participant.getPassword(),
@@ -208,11 +208,26 @@ public class ParticipantBean {
                 participant.getEmail());
     }
 
-    List<ParticipantDTO> participantsToDTOs(List<Participant> participants) {
+    public List<ParticipantDTO> participantsToDTOs(List<Participant> participants) {
         List<ParticipantDTO> dtos = new ArrayList<>();
         for (Participant p : participants) {
             dtos.add(participantToDTO(p));
         }
         return dtos;
     }
+
+    public Participant getParticipantByUsername(String username) throws MyConstraintViolationException, EntityDoesNotExistsException {
+        try {
+            Participant participant = em.find(Participant.class, username);
+            if (participant == null) {
+                throw new EntityDoesNotExistsException("There is no Participant with that username.");
+            }
+            return participant;
+        } catch (EntityDoesNotExistsException e) {
+            throw e;
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(Utils.getConstraintViolationMessages(e));
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }}
 }

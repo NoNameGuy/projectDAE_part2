@@ -10,6 +10,12 @@ and open the template in the editor.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <div>
+            <h:form> 
+                <h:outputText value="Logged as: #{administratorManager.loggedCurrentParticipant}"/>
+                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+            </h:form>
+        </div>
         <title>Participant Detail</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
@@ -64,9 +70,9 @@ and open the template in the editor.
                 <h:outputText value="#{event.responsible_name}"/>
             </p:column>
             <p:column>
-            <h:form rendered="#{event.openInscriptions}">
+            <h:form rendered="#{event.openInscription}">
                     <p:commandLink value="Open inscriptions" action="participant_details?faces-redirect=true">
-                        <f:setPropertyActionListener target="#{administratorManager.registPresence}" value="#{event}" />
+                        <f:setPropertyActionListener target="#{administratorManager.registerPresence}" value="#{event}" />
                     </p:commandLink>
                 </h:form>
             </p:column>

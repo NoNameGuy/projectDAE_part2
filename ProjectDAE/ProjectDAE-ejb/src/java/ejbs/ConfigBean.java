@@ -41,13 +41,13 @@ public class ConfigBean {
        try {
             // Create Administrator
             System.out.println("Create Administrator");
-            administratorBean.createAdmininstrator("administrator1", "administrator1", "administrator1", "Admistrator1@DAE.pt");
-            administratorBean.createAdmininstrator("administrator2", "administrator2", "administrator2", "Admistrator2@DAE.pt");
+            administratorBean.createAdmininstrator("administrator1", "administrator1", "Francisco1 Fernandes", "Admistrator1@DAE.pt");
+            administratorBean.createAdmininstrator("administrator2", "administrator2", "Paulo Vieira", "Admistrator2@DAE.pt");
             
             // Create Responsible
             System.out.println("Create Responsible");
-            responsibleBean.createResponsible("responsible1", "responsible1", "responsible1", "Responsible1@DAE.pt");
-            responsibleBean.createResponsible("responsible2", "responsible2", "responsible2", "Responsible2@DAE.pt");
+            responsibleBean.createResponsible("responsible1", "responsible1","Ricardo Martinho",  "Responsible1@DAE.pt");
+            responsibleBean.createResponsible("responsible2", "responsible2", "Carlos Grilo", "Responsible2@DAE.pt");
             responsibleBean.createResponsible("responsible3", "responsible3", "responsible3", "Responsible3@DAE.pt");
             responsibleBean.createResponsible("responsible4", "responsible4", "responsible4", "Responsible4@DAE.pt");
             
