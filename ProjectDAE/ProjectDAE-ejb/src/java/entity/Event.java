@@ -31,11 +31,12 @@ import javax.validation.constraints.NotNull;
 @Table(name = "EVENTS", uniqueConstraints
         = @UniqueConstraint(columnNames = {"NAME", "RESPONSIBLE_USERNAME"}))
 @NamedQueries({
-    @NamedQuery(name = "getAllEvents",
+    @NamedQuery(
+            name = "getAllEvents",
             query = "SELECT e FROM Event e ORDER BY e.date")
-    })
+})
 public class Event implements Serializable {
-    
+
     @Id
     private int id;
     @NotNull
@@ -47,7 +48,6 @@ public class Event implements Serializable {
     private String type;
     @NotNull
     private String local;
-    
 
     @ManyToMany
     @JoinTable(name = "EVENT_PARTICIPANT",
@@ -56,17 +56,15 @@ public class Event implements Serializable {
             inverseJoinColumns
             = @JoinColumn(name = "PARTICIPANT_USERNAME", referencedColumnName = "USERNAME"))
     private List<Participant> participants;
-    
+
     @ManyToOne
     @JoinColumn(name = "RESPONSIBLE_USERNAME")
     @NotNull
     private Responsible responsible;
     private boolean openInscriptions;
-    
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
     public Event() {
         this.participants = new LinkedList<>();
     }
@@ -129,11 +127,11 @@ public class Event implements Serializable {
     public void setParticipants(List<Participant> participants) {
         this.participants = participants;
     }
-    
+
     public void addParticipant(Participant participant) {
         participants.add(participant);
     }
-    
+
     public void removeParticipant(Participant participant) {
         participants.remove(participant);
     }
@@ -145,7 +143,7 @@ public class Event implements Serializable {
     public void setResponsible(Responsible responsible) {
         this.responsible = responsible;
     }
-    
+
     public boolean isOpenInscriptions() {
         return openInscriptions;
     }
@@ -153,11 +151,11 @@ public class Event implements Serializable {
     public void setOpenInscriptions(boolean openInscriptions) {
         this.openInscriptions = openInscriptions;
     }
-    
+
     public String toString() {
-        return "Administrator{" + "username=" + id + ", date=" + date +
-                ", name=" + name + ", type=" + type + ", local=" + local + 
-                ", responsible=" + responsible.toString() +'}';
+        return "Administrator{" + "username=" + id + ", date=" + date
+                + ", name=" + name + ", type=" + type + ", local=" + local
+                + ", responsible=" + responsible.toString() + '}';
     }
 
 }

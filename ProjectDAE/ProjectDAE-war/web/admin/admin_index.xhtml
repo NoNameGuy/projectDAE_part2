@@ -17,7 +17,7 @@ and open the template in the editor.
         <div>
             <h:form> 
                 <h:outputText value="Logged as: #{userManager.username}"/>
-                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+                <p:commandButton value="Logout" action="#{userManager.clearLogin}" />
             </h:form>
         </div>
 
@@ -28,7 +28,7 @@ and open the template in the editor.
                      var="administrator"   
                      summary="List of all Administrators">
             <p:column>
-                <f:facet name="header">ID</f:facet>
+                <f:facet name="header">Username</f:facet>
                 <h:outputText value="#{administrator.username}"/>
 
             </p:column>
@@ -48,14 +48,14 @@ and open the template in the editor.
                     <h:outputText value="Actions" />
                 </f:facet>
                 <h:form>
-                    <p:commandLink value="Update" action="admin_administrator_update?faces-redirect=true">
+                    <p:commandButton value="Update" action="admin_administrator_update?faces-redirect=true" style="color:rgb(0,0,186) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentAdministrator}" value="#{administrator}" />
-                    </p:commandLink>
+                    </p:commandButton>
 
-                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeAdministrator}">
+                    <p:commandButton value="Remove" actionListener="#{administratorManager.removeAdministrator}" 
+                                     action="admin_index?faces-redirect=true" style="color:rgb(186,0,0) ">
                         <f:param name="administratorID" id="administratorID" value="#{administrator.username}"/>
-                    </p:commandLink>
-
+                    </p:commandButton>
                 </h:form>
             </p:column>
         </p:dataTable>
@@ -72,7 +72,7 @@ and open the template in the editor.
                      var="responsible"
                      summary="List of all Responsible">
             <p:column>
-                <f:facet name="header">ID</f:facet>
+                <f:facet name="header">Username</f:facet>
                 <h:outputText value="#{responsible.username}"/>
 
             </p:column>
@@ -92,16 +92,16 @@ and open the template in the editor.
                     <h:outputText value="Actions" />
                 </f:facet>
                 <h:form>
-                    <p:commandLink value="Details" action="responsible_details?faces-redirect=true">
+                    <p:commandButton value="Details" action="admin_responsible_details?faces-redirect=true" style="color:rgb(0,186,0) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentResponsible}" value="#{responsible}" />
-                    </p:commandLink>
-                    <p:commandLink value="Update" action="admin_responsible_update?faces-redirect=true">
+                    </p:commandButton>
+                    <p:commandButton value="Update" action="admin_responsible_update?faces-redirect=true" style="color:rgb(0,0,186) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentResponsible}" value="#{responsible}" />
-                    </p:commandLink>
-
-                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeResponsible}">
-                        <f:param name="responsibleID" id="responsibleID" value="#{responsible.username}" />
-                    </p:commandLink>
+                    </p:commandButton>
+                    <p:commandButton value="Remove" actionListener="#{administratorManager.removeResponsible}" 
+                                     action="admin_index?faces-redirect=true" style="color:rgb(186,0,0) ">
+                        <f:param name="responsibleID" id="responsibleID" value="#{responsible.username}"/>
+                    </p:commandButton>
                 </h:form>
             </p:column>
         </p:dataTable>
@@ -138,16 +138,16 @@ and open the template in the editor.
                     <h:outputText value="Actions" />
                 </f:facet>
                 <h:form>
-                    <p:commandLink value="Details" action="participant_details?faces-redirect=true">
+                    <p:commandButton value="Details" action="admin_participant_details?faces-redirect=true" style="color:rgb(0,186,0) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentParticipant}" value="#{participant}" />
-                    </p:commandLink>
-                    <p:commandLink value="Update" action="admin_participant_update?faces-redirect=true">
+                    </p:commandButton>
+                    <p:commandButton value="Update" action="admin_participant_update?faces-redirect=true" style="color:rgb(0,0,186) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentParticipant}" value="#{participant}" />
-                    </p:commandLink>
-
-                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeParticipant}">
-                        <f:param name="participantID" id="participantID" value="#{participant.username}" />
-                    </p:commandLink>
+                    </p:commandButton>
+                    <p:commandButton value="Remove" actionListener="#{administratorManager.removeParticipant}" 
+                                     action="admin_index?faces-redirect=true" style="color:rgb(186,0,0) ">
+                        <f:param name="participantID" id="participantID" value="#{participant.username}"/>
+                    </p:commandButton>
                 </h:form>
             </p:column>
         </p:dataTable>
@@ -187,7 +187,13 @@ and open the template in the editor.
             </p:column>
             <p:column>
                 <f:facet name="header">Responsible</f:facet>
-                <h:outputText value="#{event.responsible_name}"/>
+                <div>
+                    <h:outputText value="#{event.responsible_username}"/>
+                </div>
+                <div>
+                    <h:outputText value="#{event.responsible_name}"/>
+                </div>
+
             </p:column>
 
             <p:column>
@@ -195,16 +201,16 @@ and open the template in the editor.
                     <h:outputText value="Actions" />
                 </f:facet>
                 <h:form>
-                    <p:commandLink value="Details" action="event_details?faces-redirect=true">
+                    <p:commandButton value="Details" action="event_details?faces-redirect=true" style="color:rgb(0,186,0) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
-                    </p:commandLink>
-                    <p:commandLink value="Update" action="update_event?faces-redirect=true">
+                    </p:commandButton>
+                    <p:commandButton value="Update" action="update_event?faces-redirect=true" style="color:rgb(0,0,186) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
-                    </p:commandLink>
-
-                    <p:commandLink value="Remove" actionListener="#{administratorManager.removeEvent}">
-                        <f:param name="eventID" id="eventID" value="#{event.id}" />
-                    </p:commandLink>
+                    </p:commandButton>
+                    <p:commandButton value="Remove" actionListener="#{administratorManager.removeEvent}" 
+                                     action="admin_index?faces-redirect=true" style="color:rgb(186,0,0) ">
+                        <f:param name="eventID" id="eventID" value="#{event.id}"/>
+                    </p:commandButton>
                 </h:form>
             </p:column>
         </p:dataTable>
@@ -238,12 +244,5 @@ and open the template in the editor.
                 <h:outputText value="#{subject.scholarYear}"/>
             </p:column>            
         </p:dataTable>
-
-        <h:form>
-            <br></br>
-            <p:commandButton action="index" value="Back"></p:commandButton> 
-
-        </h:form>
-
     </h:body>
 </html>

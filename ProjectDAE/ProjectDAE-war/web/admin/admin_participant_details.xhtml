@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <div>
+            <h:form> 
+                <h:outputText value="Logged as: #{userManager.username}"/>
+                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+            </h:form>
+        </div>
+
+        <title>Participant Detail</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>Participant Details:</div>
+        <p:dataTable value="#{administratorManager.currentParticipant}" 
+                     var="participant"
+                     summary="List Participant detais">
+            <p:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{participant.username}"/>
+            </p:column>    
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{participant.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{participant.email}"/>
+            </p:column>
+
+        </p:dataTable>
+
+        <br></br>
+
+        <div>Participant Events:</div>
+        <p:dataTable value="#{administratorManager.currentParticipantEvents}"
+                     var="event"
+                     summary="List of all events of the Responsible">
+            <p:column>
+                <f:facet name="header">Date</f:facet>
+                <h:outputText value="#{event.date}"/>
+            </p:column>    
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{event.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{event.type}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Local</f:facet>
+                <h:outputText value="#{event.local}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Responsible</f:facet>
+                <h:outputText value="#{event.responsible_username}"/>
+                <h:outputText value="#{event.responsible_name}"/>
+            </p:column>
+
+            <p:column>
+            <h:form rendered="#{event.openInscription}">
+                    <p:commandLink value="Open inscriptions" action="participant_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.registerPresence}" value="#{event}" />
+                    </p:commandLink>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+        <h:form>
+            <p:commandLink action="AdminPage" value="Back"></p:commandLink>
+        </h:form>
+    </h:body>
+</html>

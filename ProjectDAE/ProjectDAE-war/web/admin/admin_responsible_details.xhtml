@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <div>
+            <h:form> 
+                <h:outputText value="Logged as: #{userManager.username}"/>
+                <h:commandButton value="Logout" action="#{userManager.clearLogin}" />
+            </h:form>
+        </div>
+
+        <title>Responsible Detais</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div>Responsible Details</div>
+        <p:dataTable value="#{administratorManager.currentResponsible}" 
+                     var="responsible"
+                     summary="List Responsible detais">
+            <p:column>
+                <f:facet name="header">Username</f:facet>
+                <h:outputText value="#{responsible.username}"/>
+            </p:column>    
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{responsible.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{responsible.email}"/>
+            </p:column>
+        </p:dataTable>
+
+
+        <br></br><br></br>
+        <div>Responsible Events</div>
+        <p:dataTable value="#{administratorManager.currentResponsibleEvents}" 
+                     var="event"
+                     summary="List of all events of the Responsible">
+            <p:column>
+                <f:facet name="header">Date</f:facet>
+                <h:outputText value="#{event.date}"/>
+            </p:column>    
+            <p:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{event.name}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Type</f:facet>
+                <h:outputText value="#{event.type}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Local</f:facet>
+                <h:outputText value="#{event.local}"/>
+            </p:column>
+            <p:column>
+                <f:facet name="header">Open Inscriptions</f:facet>
+                <h:outputText value="#{event.openInscription}"/>
+            </p:column>
+            
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="Actions" />
+                </f:facet>
+                <h:form>
+                    <p:commandLink value="Details" action="event_details?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
+                    </p:commandLink>
+                </h:form>
+
+                <h:form rendered="#{!event.openInscription}">
+                    <p:commandLink value="Open inscriptions" actionListener="#{administratorManager.openInscription}">
+                        <f:param name="eventID" id="eventID" value="#{event.id}"/>
+                    </p:commandLink>
+                </h:form>    
+
+                <h:form rendered="#{event.openInscription}">
+                    <p:commandLink value="Close inscriptions" actionListener="#{administratorManager.closeInscription}">
+                        <f:param name="eventID" id="eventID" value="#{event.id}"/>
+                    </p:commandLink>
+                </h:form>
+                <h:form>
+                    <p:commandLink action="add_participant_event" value="Add Participant"></p:commandLink>
+                </h:form>
+
+            </p:column>
+
+        </p:dataTable>
+        <br></br><br></br>
+        <h:form>          
+            <br></br>
+            <p:commandLink action="AdminPage" value="Back"></p:commandLink>
+        </h:form>
+    </h:body>
+</html>

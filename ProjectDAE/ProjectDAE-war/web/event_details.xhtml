@@ -77,7 +77,7 @@ and open the template in the editor.
 
             <p:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{participant.id}"/>
+                <h:outputText value="#{participant.username}"/>
 
             </p:column>
             <p:column>
@@ -103,7 +103,7 @@ and open the template in the editor.
                 </f:facet>
                 <h:form>
                     <p:commandLink value="Remove participant" actionListener="#{administratorManager.unrollParticipants}" action="event_details?faces-redirect=true">
-                        <f:param name="participantId" id="participantId" value="#{participant.id}"/>
+                        <f:param name="participantId" id="participantId" value="#{participant.username}"/>
                     </p:commandLink>
                 </h:form>
             </p:column>
@@ -118,7 +118,7 @@ and open the template in the editor.
                      summary="List of Unrolled Participants">
             <p:column>
                 <f:facet name="header">ID</f:facet>
-                <h:outputText value="#{participant.id}"/>
+                <h:outputText value="#{participant.username}"/>
 
             </p:column>
             <p:column>
@@ -137,7 +137,7 @@ and open the template in the editor.
                 </f:facet>
                 <h:form>
                     <p:commandLink value="Add participant" actionListener="#{administratorManager.enrollParticipants}" action="event_details?faces-redirect=true">
-                        <f:param name="participantId" id="participantId" value="#{participant.id}"/>
+                        <f:param name="participantId" id="participantId" value="#{participant.username}"/>
                     </p:commandLink>
                     
                 </h:form>

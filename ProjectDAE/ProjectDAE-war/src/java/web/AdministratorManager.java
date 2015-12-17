@@ -118,6 +118,7 @@ public class AdministratorManager {
         try {
             UIParameter param = (UIParameter) event.getComponent().findComponent("administratorID");
             String username = param.getValue().toString();
+            System.out.println("username: " + username);
             administratorBean.removeAdministrator(username);
         } catch (Exception e) {
             logger.warning("Problem removing user in method removeUser().");
