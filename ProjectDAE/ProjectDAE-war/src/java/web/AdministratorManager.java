@@ -351,11 +351,11 @@ public class AdministratorManager {
                     newEvent.getLocal(),
                     newEvent.getResponsible_username());
             newEvent.reset();
-            return "AdminPage?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "create_event?faces-redirect=true";
+        return "admin_event_create?faces-redirect=true";
     }
 
     public void removeEvent(ActionEvent event) {
@@ -365,6 +365,7 @@ public class AdministratorManager {
             eventBean.removeEvent(id);
         } catch (Exception e) {
             logger.warning("Problem removing user in method removeUser().");
+            e.printStackTrace();
         }
     }
 
@@ -378,11 +379,11 @@ public class AdministratorManager {
                     currentEvent.getLocal(),
                     currentEvent.getResponsible_username());
 
-            return "AdminPage?faces-redirect=true";
+            return "admin_index?faces-redirect=true";
         } catch (Exception e) {
             logger.warning("Problem updating user in method updateEvent().");
         }
-        return "update_event?faces-redirect=true";
+        return "admin_event_update?faces-redirect=true";
     }
 
     public List<EventDTO> getAllEvents() {

@@ -7,13 +7,27 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:h="http://java.sun.com/jsf/html"  
-      xmlns:f="http://java.sun.com/jsf/core"  
-      xmlns:p="http://primefaces.org/ui"> 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Admin Page</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+
     </h:head>
     <h:body>
+        <context-param>
+            <param-name>primefaces.THEME</param-name>
+            <param-value>cruze</param-value>
+        </context-param>
+
+        <h:form>
+            <p:menubar>
+                <p:submenu label="#{userManager.username}">
+                    <p:menuitem value="Logout" icon="ui-icon-logout" action="#{userManager.clearLogin}">Logout</p:menuitem>
+                </p:submenu>
+
+            </p:menubar>
+        </h:form>
         <div>
             <h:form> 
                 <h:outputText value="Logged as: #{userManager.username}"/>
@@ -118,7 +132,7 @@ and open the template in the editor.
                      var="participant"
                      summary="List of all Participant">
             <p:column>
-                <f:facet name="header">ID</f:facet>
+                <f:facet name="header">Username</f:facet>
                 <h:outputText value="#{participant.username}"/>
 
             </p:column>
@@ -201,10 +215,10 @@ and open the template in the editor.
                     <h:outputText value="Actions" />
                 </f:facet>
                 <h:form>
-                    <p:commandButton value="Details" action="event_details?faces-redirect=true" style="color:rgb(0,186,0) ">
+                    <p:commandButton value="Details" action="admin_event_details?faces-redirect=true" style="color:rgb(0,186,0) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
                     </p:commandButton>
-                    <p:commandButton value="Update" action="update_event?faces-redirect=true" style="color:rgb(0,0,186) ">
+                    <p:commandButton value="Update" action="admin_event_update?faces-redirect=true" style="color:rgb(0,0,186) ">
                         <f:setPropertyActionListener target="#{administratorManager.currentEvent}" value="#{event}" />
                     </p:commandButton>
                     <p:commandButton value="Remove" actionListener="#{administratorManager.removeEvent}" 
@@ -216,7 +230,7 @@ and open the template in the editor.
         </p:dataTable>
 
         <h:form>
-            <p:commandButton action="create_event" value="Create Event"></p:commandButton>
+            <p:commandButton action="admin_event_create" value="Create Event"></p:commandButton>
         </h:form>
 
         <br></br>
